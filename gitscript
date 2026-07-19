@@ -1,0 +1,26 @@
+1.  yum install git
+2. git --version
+3. mkdir myfiles
+4.ls
+5.cd myfiles
+6.git init
+7.git config --global user.name "Sumeet"
+8.git config --global user.email "sumeetgaura@gmail.com"
+9.vi kubernetesscript
+git status
+git add .
+git status
+  314  git remote add origin https://github.com/sumeetgaurav/myfiles.git
+  315  git branch
+  316  git branch -M main
+  317  git branch
+  318  git push -u origin main
+  319  git remote remove origin
+  320  git remote add origin https://github.com/sumeetgaurav/myfiles.git
+  321  git branch
+  322  git push -u origin main
+  323  git commit -m "Initial commit"
+  324  git branch
+  325  git push -u origin main
+  326  history
+
