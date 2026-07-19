@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: efspvdeploy
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mypv
+
+  template:
+    metadata:
+      labels:
+        app: mypv
+
+    spec:
+      containers:
+        - name: c01
+          image: ubuntu
+          command: ["/bin/bash", "-c", "while true; do echo 'Container is running'; sleep 1000; done"]
+          volumeMounts:
+            - name: myvolume
+              mountPath: "/tmp/contvol"
+              # This directory will be created inside the container
+
+      volumes:
+        - name: myvolume
+          persistentVolumeClaim:
+            claimName: myefsvolclaim
+            # PVC that we created earlier

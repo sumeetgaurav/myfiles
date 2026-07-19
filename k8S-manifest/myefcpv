@@ -1,0 +1,20 @@
+apiVersion: v1                # Specifies the Kubernetes API version being used.v1 is the stable core API version for PersistentVolumes.
+kind: PersistentVolume        # Defines the type of Kubernetes object.  
+
+metadata:                     # Contains information about the object. 
+  name: myefspv
+
+spec:                         # Contains the actual configuration of the PersistentVolume.
+  capacity:
+    storage: 2Gi              # Although Amazon EFS grows automatically, Kubernetes still requires a storage size to be specified.  
+
+  accessModes:
+    - ReadWriteMany           # EFS supports multiple readers and writers simultaneously
+ 
+  persistentVolumeReclaimPolicy: Retain  # This tells Kubernetes what to do with the storage after the PersistentVolumeClaim (PVC) is deleted.
+ 
+
+  nfs:                         # This indicates the PV uses an NFS server. Since AWS EFS uses the NFS protocol, it is accessed as an NFS share.
+    server: fs-0083e51cb58bc43e9.efs.ap-south-1.amazonaws.com     # This is the DNS name of your EFS file system
+    path: "/" # Specifies the directory inside the EFS file system.
+ 

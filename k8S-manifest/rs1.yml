@@ -1,0 +1,25 @@
+kind: ReplicaSet
+apiVersion: apps/v1    # ReplicaSet is available in apps/v1
+
+metadata:
+  name: myreplicaset
+
+spec:
+  replicas: 2          # Desired number of Pods
+
+  selector:
+    matchExpressions:  # Must match the labels
+      - key: myname
+        operator: In
+        values: [sumeet, hari, sai]
+
+  template:            # Template for the Pod specification
+    metadata:
+      labels:
+        myname: sumeet
+
+    spec:
+      containers:
+        - name: c00
+          image: ubuntu
+          command: ["/bin/bash", "-c", "while true; do echo Hello-Sumeet; sleep 5; done"]

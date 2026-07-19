@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+
+metadata:
+  name: nodelabelpod
+
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo Hello-Sumeet; sleep 5; done"]
+
+  nodeSelector:              # Specifies which node to run the pod
+    mynode: sg               # Can give any label

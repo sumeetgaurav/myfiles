@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+
+metadata:
+  name: myefsvolclaim
+
+spec:
+  volumeName: myefspv
+  # This binds to a specific PersistentVolume (PV)
+
+  accessModes:
+    - ReadWriteMany
+    # I want a volume that will have read & write access
+
+  resources:
+    requests:
+      storage: 1Gi
