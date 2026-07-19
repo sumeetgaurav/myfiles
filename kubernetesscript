@@ -1,0 +1,249 @@
+Command: - 15/07/2026
+
+    1  aws --version
+    2  curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.35.3/2026-04-08/bin/linux/amd64/kubectl
+    3  chmod +x ./kubectl
+    4  mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+    5  kubectl version
+    6  ARCH=amd64
+    7  PLATFORM=$(uname -s)_$ARCH
+    8  curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+    9  curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+   10  tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+   11  sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
+   12  eksctl version
+   13  eksctl create cluster --name sumeetg --region ap-south --node-type t3.micro
+   14  vi pod1.yml
+   15  kubectl apply -f pod1.yml
+   16  cat pod1.yml
+   17  kubectl get pods
+   18  kubectl get pod
+   19  kubectl get po
+   20  kubectl get all
+   21  kubectl get pods -o wide  - details about pod
+   22  kubectl describe pod testpod  - more details about pod
+   23  history
+   24  kubectl logs -f testpod
+   27  kubectl logs -f testpod -c c00
+   28  car pod1.yml
+   29  cat pod1.yml
+   30  kubectl delete -f pod1.yml
+   31  kubectl get all
+   33  eksctl delete cluster sumeetg --region ap-south-1
+
+   32  history
+
+
+Command: - 16/07/2026:
+
+   35.eksctl create cluster --name sumeetg --region ap-south-1 --node-type c7i-flex.large
+   36  kubectl get nodes
+   37  ls
+   38  cat pod1.yml
+   39  kubectl get pods
+   40  kubectl get all
+   41  vi pod2.yml
+   42  kubectl apply -f pod2.yml
+   43  cat pod2.yml
+   44  kubectl describe pod testpod2
+   45  kubectl get all
+   46  kubectl exec testpod2 -- cat /etc/os-release
+   47  kubectl exec testpod2 -c c00 -- cat /etc/os-release
+   48  kubectl exec testpod2 -it -- /bin/bash
+   49  kubectl delete -f pod2.yml
+   50  kubectl get all
+   51  vi pod3.yml
+   52  kubectl apply -f pod3.yml
+   53  kubectl get all
+   54  kubectl get pods -o wide
+   55  kubectl describe pod testpod3
+   56  kubectl logs -f testpod3 -c c00
+   57  kubectl logs -f testpod3 -c c01
+   58  kubectl logs -f testpod3
+   59  kubectl delete pod testpod3
+   60  vi pod4.yml
+   61  kubectl apply -f pod4.yml
+   62  kubectl get all
+   63  kubectl exec testpod4 -- env
+   64  kubectl exec testpod4 -it -- /bin/bash
+   65  kubectl delete pod testpod4
+   66  vi pod5.yml
+   67  kubectl apply -f pod5.yml
+   68  kubectl get all
+   69  kubectl get pods --show-labels
+   70  kubectl label pods labelspod1 course=devops
+   71  kubectl get pods --show-labels
+   72  kubectl label pods labelspod1 course-
+   73  kubectl get pods --show-labels
+   74  kubectl get pods -l class=kubernetes
+   75  kubectl get pods -l class=ansible
+   76  kubectl delete pod -l day=fri
+   77  kubectl get all
+   78  vi pod6.yml
+   79  kubectl apply -f pod5.yml
+   80  kubectl apply -f pod6.yml
+   81  kubectl get all
+   82  kubectl get pods -l day=fri
+   83  kubectl get pods -l day!=fri
+   84  kubectl get pods -l 'day in (fri,sun)'
+   85  kubectl get pods -l 'day notin (fri,sun)'
+   86  kubectl delete pods -l 'day in (fri,sat)'
+   87  kubectl get all
+   88  vi nodelabel.yml
+   89  kubectl apply -f nodelabel.yml
+   90  kubectl get all
+   91  kubectl get nodes
+   92  kubectl label nodes ip-192-168-67-240.ap-south-1.compute.internal mynode=sg
+   93  kubectl describe node ip-192-168-67-240.ap-south-1.compute.internal
+   94  kubectl get all
+   95  kubectl get all -o wide
+   96  kubectl get all
+   97  kubectl delete pod nodelabelpod
+   98  kubectl label node ip-192-168-67-240.ap-south-1.compute.internal mynode-
+   99  kubectl get all
+  100  vi rc.yml
+  101  kubectl apply -f rc.yml
+  102  kubectl get all
+  103  kubectl get pods
+  104  kubectl get rc
+  105*
+  106  kubectl get all
+  107  kubectl delete pod myreplicationcontroller-bzttv
+  108  kubectl get all
+  109  kubectl scale --replicas=1 replicationcontroller/myreplicationcontroller
+  110  kubectl get all
+  111  kubectl scale --replicas=3 replicationcontroller/myreplicationcontroller
+  112  kubectl get all
+  113  kubectl scale --replicas=3 replicationcontroller/myreplicationcontroller
+  114  kubectl get all
+  115  kubectl scale --replicas=2 replicationcontroller/myreplicationcontroller
+  116  kubectl get all
+  117  kubectl delete -f rc.yml
+  118  vi rs.yml
+  119  kubectl apply -f rs.yml
+  120  kubectl get all
+  121  kubectl delete pod myreplicaset-9vhqp
+  122  kubectl get all
+  123  kubectl scale --replicas=1 replicaset.apps/myreplicaset
+  124  kubectl get all
+  125  kubectl scale --replicas=4 replicaset.apps/myreplicaset
+  126  kubectl get all
+  127  kubectl scale --replicas=3 replicaset.apps/myreplicaset
+  128  kubectl get all
+  129  kubectl get rs
+  130  kubectl delete -f rs.yml
+  131  cat rc.yml
+          eksctl delete cluster sumeetg --region ap-south-1
+
+
+
+
+
+
+
+
+
+Command: - 17/07/2026:
+
+  136  eksctl create cluster --name sumeetg --region ap-south-1 --node-type c7i-flex.large
+  137  kubectl get all
+  138  kubectl get nodes
+  139  vi deployments.yml
+  140  kubectl apply -f deployments.yml
+  141  kubectl get all
+  142  kubectl logs -f mydeployments-546577ccc-4x8tg
+  143  cat deployments.yml
+  144  vi deployments.yml
+  145  kubectl apply -f deployments.yml
+  146  kubectl get all
+  147  kubectl logs -f mydeployments-5fd6875755-f6qfz
+  148  kubectl rollout undo deploy/mydeployments
+  217  kubectl rollout history deploy mydeployments
+  218  kubectl rollout undo deployment.apps/mydeployments --to-revision=7
+  219  kubectl get all
+  220  kubectl logs -f mydeployments-74c56ffc49-8q4fp
+  221  kubectl rollout undo deployment.apps/mydeployments --to-revision=4
+  149  kubectl get all
+  150  kubectl logs -f mydeployments-546577ccc-g7tx5
+  151  kubectl get all
+  152  kubectl scale --replicas=3 deploy/mydeployments
+  153  kubectl get all
+  154  kubectl rollout undo deploy/mydeployments
+  155  kubectl get all
+  156  kubectl scale --replicas=1 deploy/mydeployments
+  157  kubectl get all
+  158  kubectl rollout undo deploy/mydeployments
+  159  kubectl get all
+  160  kubectl delete pod mydeployments-546577ccc-vll6s
+  161  kubectl get all
+  162  cat deployments.yml
+  163  kubectl get all
+  164  kubectl delete -f deployments.yml
+  165  kubectl get all
+  166  vi deployhttpd.yml
+  167  kubectl apply -f deployhttpd.yml
+  168  kubectl get all
+  169  kubectl get all -o wide
+  170  vi service.yml
+  171  cat service.yml
+  172  cat deployhttpd.yml
+  173  kubectl get all
+  174  kubectl delete -f service.yml
+  175  kubectl apply -f service.yml
+  176  kubectl get all
+  177  kubectl delete pod mydeployments-978ffb679-26lqt
+  178  kubectl delete pod mydeployments-978ffb679-vgzcv
+  179  kubectl delete pod mydeployments-978ffb679-vx225
+  180  kubectl get all
+  181  kubectl get ods -o wide
+  182  kubectl get pods -o wide
+  183  kubectl get all
+  184  cat deployhttpd.yml
+  185  kubectl get all
+  186  kubectl delete -f service.yml
+  187  kubectl delete -f deployhttpd.yml
+  188  kubectl get all
+  189  eksctl delete cluster sumeetg --region ap-south-1
+
+
+
+
+Command: - 18/07/2026:
+
+  192  vi myefspv.yml
+  193  ls
+  194  ls -a
+  195  rm -rf .myefspv.yml.swp
+  196  ls
+  197  vi myefspv.yml
+  198  kubectl apply -f myefspv.yml
+  199  kubectl get all
+  200  kubectl get pv
+  201  vi efspvc.yml
+  202  kubectl apply -f efspvc.yml
+  203  kubectl get pvc
+  204  ls
+  205  cat efspvc.yml
+  206  cat myefspv.yml
+  207  cat efspvc.yml
+  208  vi efsdeploy.yml
+  209  kubectl apply -f efsdeploy.yml
+  210  kubectl get all
+  211  kubectl exec efspvdeploy-78db5876dc-d8s8f -it -- /bin/bash
+  212  kubectl get all
+  213  kubectl delete pod efspvdeploy-78db5876dc-d8s8f
+  214  kubectl get all
+  215  kubectl exec efspvdeploy-78db5876dc-6qvsf -it -- /bin/bash
+  216  kubectl get all
+  217  kubectl scale --replicas=2 deployment.apps/efspvdeploy
+  218  kubectl get all
+  219  kubectl exec efspvdeploy-78db5876dc-4nkb6 -it -- /bin/bash
+  220  kubectl get pods -o wide
+  221  kubectl delete -f efsdeploy.yml
+  222  kubectl delete -f efspvc.yml
+  223  kubectl delete -f myefspv.yml
+  224  history
+
+
+
+
